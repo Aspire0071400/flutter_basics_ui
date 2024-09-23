@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_basics_ui/snackbar.dart';
+import 'package:flutter_basics_ui/widgets/dissmisible.dart';
+import 'package:flutter_basics_ui/widgets/drawer.dart';
+import 'package:flutter_basics_ui/widgets/snackbar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const SnackBarWidget(),
+      home: const DrawerWidget(),
     );
   }
 }
