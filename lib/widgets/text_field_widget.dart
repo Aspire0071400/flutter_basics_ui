@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-class TextFieldWidget extends StatelessWidget {
+class TextFieldWidget extends StatefulWidget {
   const TextFieldWidget({super.key});
 
   @override
+  State<TextFieldWidget> createState() => _TextFieldWidgetState();
+}
+
+class _TextFieldWidgetState extends State<TextFieldWidget> {
+  @override
   Widget build(BuildContext context) {
     final textController = TextEditingController();
+    BuildContext? dialogContext;
 
     return Scaffold(
       appBar: AppBar(
@@ -43,9 +50,35 @@ class TextFieldWidget extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: Text(textController.text)));
-                textController.clear();
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      dialogContext = context;
+                      return AlertDialog(
+                        title: const Text('Warning'),
+                        content: const Text('Do you want to Logout?'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Fluttertoast.showToast(
+                                  msg: 'You are Logged out.');
+                              Navigator.pop(context);
+                            },
+                            child: const Text('Yes'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Fluttertoast.showToast(
+                                  msg: 'You are not Logged out.');
+                            },
+                            child: const Text('No'),
+                          )
+                        ],
+                      );
+                    });
+                // ScaffoldMessenger.of(context)
+                //     .showSnackBar(SnackBar(content: Text(textController.text)));
+                // textController.clear();
               },
               style: const ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(Colors.amber)),
